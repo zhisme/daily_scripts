@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+excluded_branches = ['*']
+
+if ARGV[0]
+  excluded_branches += ARGV[0].split(',')
+end
+
+branches = `git branch`.split
+branches_to_delete = branches - excluded_branches
+
+puts branches_to_delete
+branches_to_delete.each do |branch|
+  `git branch -D #{branch}`
+end
